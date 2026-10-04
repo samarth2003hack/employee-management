@@ -45,4 +45,15 @@ public class EmployeeRepository {
         }
         return false;
     }
+
+    public boolean updateEmployee(int id, Employee updateEmployee){
+        for(Employee employee:employees){
+            if(employee.getId()==id){
+                employee.setName(updateEmployee.getName());
+                employee.setSalary(updateEmployee.getSalary());
+                return true;
+            }
+        }
+        return false;
+    }
 }

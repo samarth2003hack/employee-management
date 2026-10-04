@@ -30,4 +30,8 @@ public class EmployeeService {
     public boolean deleteEmployee(int id){
         return repository.deleteEmployee(id);
     }
+
+    public boolean updateEmployee(int id, Employee updateEmployee){
+        return repository.updateEmployee(id,updateEmployee);
+    }
 }

@@ -40,4 +40,14 @@ public class EmployeeController {
         }
         else return "Employee not found";
     }
+
+    @PutMapping("/{id}")
+    public String updateEmployee(@PathVariable int id, @RequestBody Employee updateEmployee){
+        boolean updated = service.updateEmployee(id,updateEmployee);
+
+        if(updated){
+            return "Employee updated sucessfully !";
+        }
+        return "Employee not found";
+    }
 }
