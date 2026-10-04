@@ -1,15 +1,21 @@
 package com.example.employee_management.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Employee {
-
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private double salary;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, double salary) {
+    public Employee(Integer id, String name, double salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
@@ -19,7 +25,7 @@ public class Employee {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -16,22 +16,37 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
-        return repository.getAllEmployees();
+        return repository.findAll();
     }
 
     public Employee getEmployeeById(int id) {
-        return repository.getEmployeeById(id);
+        return repository.findById(id).orElse(null);
     }
 
     public void createEmployee(Employee employee) {
-        repository.saveEmployee(employee);
+        repository.save(employee);
     }
 
-    public boolean deleteEmployee(int id){
-        return repository.deleteEmployee(id);
+    public boolean deleteEmployee(int id) {
+
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 
-    public boolean updateEmployee(int id, Employee updateEmployee){
-        return repository.updateEmployee(id,updateEmployee);
+    public boolean updateEmployee(int id, Employee updateEmployee) {
+
+        if (repository.existsById(id)) {
+
+            updateEmployee.setId(id);
+            repository.save(updateEmployee);
+
+            return true;
+        }
+
+        return false;
     }
 }
