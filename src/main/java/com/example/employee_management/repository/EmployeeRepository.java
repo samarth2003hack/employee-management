@@ -35,4 +35,14 @@ public class EmployeeRepository {
     public void saveEmployee(Employee employee) {
         employees.add(employee);
     }
+
+    public boolean deleteEmployee(int id){
+        for(Employee employee:employees){
+            if(employee.getId()==id){
+                employees.remove(employee);
+                return true;
+            }
+        }
+        return false;
+    }
 }

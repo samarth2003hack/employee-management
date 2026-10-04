@@ -31,4 +31,13 @@ public class EmployeeController {
         service.createEmployee(employee);
         return "Employee created successfully";
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteEmpoyee(@PathVariable int id){
+        boolean deleted = service.deleteEmployee(id);
+        if(deleted){
+            return "Employee deleted successfully";
+        }
+        else return "Employee not found";
+    }
 }
