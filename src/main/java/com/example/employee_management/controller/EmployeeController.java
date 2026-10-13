@@ -3,6 +3,8 @@ package com.example.employee_management.controller;
 import com.example.employee_management.model.Employee;
 import com.example.employee_management.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -22,32 +24,40 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable int id) {
-        return service.getEmployeeById(id);
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) {
+        Employee employee = service.getEmployeeById(id);
+
+        if (employee != null) {
+            return ResponseEntity.ok(employee);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public String createEmployee(@RequestBody Employee employee) {
-        service.createEmployee(employee);
-        return "Employee created successfully";
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+       Employee savedEmployee= service.createEmployee(employee);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(savedEmployee);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteEmpoyee(@PathVariable int id){
+    public ResponseEntity<String> deleteEmpoyee(@PathVariable int id){
         boolean deleted = service.deleteEmployee(id);
         if(deleted){
-            return "Employee deleted successfully";
+            return ResponseEntity.ok("Employee deleted successfully !");
         }
-        else return "Employee not found";
+        else return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
-    public String updateEmployee(@PathVariable int id, @RequestBody Employee updateEmployee){
+    public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody Employee updateEmployee){
         boolean updated = service.updateEmployee(id,updateEmployee);
 
         if(updated){
-            return "Employee updated sucessfully !";
+            return ResponseEntity.ok("Employee updated sucessfully !");
         }
-        return "Employee not found";
+        return ResponseEntity.notFound().build();
     }
 }

@@ -23,8 +23,8 @@ public class EmployeeService {
         return repository.findById(id).orElse(null);
     }
 
-    public void createEmployee(Employee employee) {
-        repository.save(employee);
+    public Employee createEmployee(Employee employee) {
+       return  repository.save(employee);
     }
 
     public boolean deleteEmployee(int id) {
